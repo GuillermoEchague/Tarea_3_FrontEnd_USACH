@@ -1,0 +1,158 @@
+// Importar el módulo de color
+@use "sass:color";
+
+// Variables
+$primary-color: #111e2e;
+$white-color: #ffffff;
+$black-color: #000000;
+$font-main: 'Raleway', sans-serif;
+$font-secondary: 'Roboto Slab', serif;
+
+// Mixins para responsividad
+@mixin respond($breakpoint) {
+  @if $breakpoint == mobile {
+    @media (max-width: 768px) { @content; }
+  }
+}
+
+// Estilos para Header
+.header {
+  background-color: $primary-color;
+  color: $white-color;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+
+  &__logo-img {
+    width: 80px;
+  }
+
+  &__nav {
+    &-list {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    &-item {
+      margin-right: 15px;
+    }
+
+    &-link {
+      color: $white-color;
+      text-decoration: none;
+      font-family: $font-main;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  // Responsividad en móviles
+  @include respond(mobile) {
+    flex-direction: column;
+    align-items: center;
+
+    &__nav-list {
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    &__logo-img {
+      width: 50px;
+    }
+  }
+}
+
+// Estilos para Footer
+.footer {
+  background-color: $black-color;
+  color: $white-color;
+  text-align: center;
+  font-family: $font-main;
+  padding: 30px;
+
+  h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+}
+
+// Estilos para el Carousel
+.carousel {
+    &-inner {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      width: 100vw; // El ancho será el 100% del viewport
+      height: 100vh; // La altura será el 100% del viewport
+  
+      .carousel-item {
+        img {
+          width: 100vw; // Ocupará el 100% del ancho disponible
+          height: 100vh; // Ocupará el 100% del alto disponible
+          object-fit: cover; // Se ajustará el contenido para que llene el espacio sin deformarse
+        }
+      }
+    }
+  }
+
+// Estilos para Servicios y Pilares
+.container {
+  margin-top: 2rem;
+  
+  .services, .pilares {
+    text-align: center;
+    margin: 2rem 0;
+
+    h2 {
+      font-family: $font-secondary;
+      font-weight: bold;
+    }
+
+    p {
+      font-family: $font-main;
+    }
+  }
+
+  // Pilares usando CSS Grid
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 20px;
+
+    // Responsividad en móviles
+    @include respond(mobile) {
+      grid-template-columns: 1fr;
+    }
+
+    .pilar {
+      background-color: color.adjust($primary-color, $lightness: 10%);
+      padding: 20px;
+      color: $white-color;
+      text-align: center;
+      font-family: $font-main;
+    }
+  }
+}
+
+// Media Queries adicionales si se necesitan
+@media (max-width: 1024px) {
+  .container {
+    .grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+}
